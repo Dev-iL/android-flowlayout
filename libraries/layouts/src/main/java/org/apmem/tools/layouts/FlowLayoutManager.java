@@ -23,10 +23,16 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
     List<LineDefinition> lines = new ArrayList<>();
     List<ViewDefinition> views = new ArrayList<>();
 
+    public FlowLayoutManager() {
+        this(new FlowLayoutProperties());
+    }
+
     public FlowLayoutManager(FlowLayoutProperties properties) {
         this.properties = properties;
     }
 
+    public FlowLayoutManager(Context ctx, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        this(FlowLayoutProperties.fromProperties(getProperties(ctx, attrs, defStyleAttr, defStyleRes)));
     }
 
     @Override
