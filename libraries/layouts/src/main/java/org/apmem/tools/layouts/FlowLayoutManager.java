@@ -60,7 +60,7 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
         lines.clear();
         for (int i = 0; i < count; i++) {
             View child = recycler.getViewForPosition(i);
-            attachView(child);
+            addView(child); // reverted due to "java.lang.IllegalArgumentException: Called attach on a child which is not detached"
             measureChildWithMargins(child, 0, 0);
 
             final LayoutParams lp = (LayoutParams) child.getLayoutParams();
