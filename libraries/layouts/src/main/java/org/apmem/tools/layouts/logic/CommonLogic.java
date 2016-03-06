@@ -28,7 +28,7 @@ public class CommonLogic {
         }
     }
 
-    public static void applyGravityToLines(List<LineDefinition> lines, int realControlLength, int realControlThickness, ConfigDefinition config) {
+    public static void applyGravityToLines(List<LineDefinition> lines, int realControlLength, int realControlThickness, FlowLayoutProperties config) {
         final int linesCount = lines.size();
         if (linesCount <= 0) {
             return;
@@ -71,7 +71,7 @@ public class CommonLogic {
         }
     }
 
-    public static void applyGravityToLine(LineDefinition line, ConfigDefinition config) {
+    public static void applyGravityToLine(LineDefinition line, FlowLayoutProperties config) {
         final List<ViewDefinition> views = line.getViews();
         final int viewCount = views.size();
         if (viewCount <= 0) {
@@ -137,12 +137,12 @@ public class CommonLogic {
         return realControlSize;
     }
 
-    private static float getWeight(ViewDefinition child, ConfigDefinition config) {
+    private static float getWeight(ViewDefinition child, FlowLayoutProperties config) {
         return child.weightSpecified() ? child.getWeight() : config.getWeightDefault();
     }
 
 
-    private static int getGravity(ViewDefinition child, ConfigDefinition config) {
+    private static int getGravity(ViewDefinition child, FlowLayoutProperties config) {
         int parentGravity = config.getGravity();
 
         int childGravity;
@@ -176,7 +176,7 @@ public class CommonLogic {
     }
 
 
-    public static int getGravityFromRelative(int childGravity, ConfigDefinition config) {
+    public static int getGravityFromRelative(int childGravity, FlowLayoutProperties config) {
         // swap directions for vertical non relative view
         // if it is relative, then START is TOP, and we do not need to switch it here.
         // it will be switched later on onMeasure stage when calculations will be with length and thickness
@@ -198,7 +198,7 @@ public class CommonLogic {
         return childGravity;
     }
 
-    public static void fillLines(List<ViewDefinition> views, List<LineDefinition> lines, ConfigDefinition config) {
+    public static void fillLines(List<ViewDefinition> views, List<LineDefinition> lines, FlowLayoutProperties config) {
         LineDefinition currentLine = new LineDefinition(config);
         lines.add(currentLine);
         final int count = views.size();

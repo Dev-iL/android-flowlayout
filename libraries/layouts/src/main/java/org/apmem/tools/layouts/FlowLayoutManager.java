@@ -1,6 +1,5 @@
 package org.apmem.tools.layouts;
 
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.view.ViewDebug;
 import android.view.ViewGroup;
 import org.apmem.tools.layouts.logic.CommonLogic;
-import org.apmem.tools.layouts.logic.ConfigDefinition;
+import org.apmem.tools.layouts.logic.FlowLayoutProperties;
 import org.apmem.tools.layouts.logic.LineDefinition;
 import org.apmem.tools.layouts.logic.ViewDefinition;
 
@@ -19,16 +18,15 @@ import java.util.List;
 
 public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
-    private final ConfigDefinition config;
+    private final FlowLayoutProperties properties;
+
     List<LineDefinition> lines = new ArrayList<>();
     List<ViewDefinition> views = new ArrayList<>();
 
-    public FlowLayoutManager(ConfigDefinition config) {
-        this.config = config;
+    public FlowLayoutManager(FlowLayoutProperties properties) {
+        this.properties = properties;
     }
 
-    public FlowLayoutManager() {
-        this.config = new ConfigDefinition();
     }
 
     @Override
@@ -65,7 +63,7 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
             final LayoutParams lp = (LayoutParams) child.getLayoutParams();
 
-            ViewDefinition view = new ViewDefinition(this.config, child);
+            ViewDefinition view = new ViewDefinition(properties, child);
             view.setWidth(child.getMeasuredWidth());
             view.setHeight(child.getMeasuredHeight());
             view.setNewLine(lp.isNewLine());
@@ -75,13 +73,13 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
             views.add(view);
         }
 
-        this.config.setMaxWidth(this.getWidth() - this.getPaddingRight() - this.getPaddingLeft());
-        this.config.setMaxHeight(this.getHeight() - this.getPaddingTop() - this.getPaddingBottom());
-        this.config.setWidthMode(View.MeasureSpec.EXACTLY);
-        this.config.setHeightMode(View.MeasureSpec.EXACTLY);
-        this.config.setCheckCanFit(true);
+        properties.setMaxWidth(this.getWidth() - this.getPaddingRight() - this.getPaddingLeft());
+        properties.setMaxHeight(this.getHeight() - this.getPaddingTop() - this.getPaddingBottom());
+        properties.setWidthMode(View.MeasureSpec.EXACTLY);
+        properties.setHeightMode(View.MeasureSpec.EXACTLY);
+        properties.setCheckCanFit(true);
 
-        CommonLogic.fillLines(views, lines, config);
+        CommonLogic.fillLines(views, lines, properties);
         CommonLogic.calculateLinesAndChildPosition(lines);
 
         int contentLength = 0;
@@ -93,10 +91,10 @@ public class FlowLayoutManager extends RecyclerView.LayoutManager {
 
         LineDefinition currentLine = lines.get(lines.size() - 1);
         int contentThickness = currentLine.getLineStartThickness() + currentLine.getLineThickness();
-        int realControlLength = CommonLogic.findSize(this.config.getLengthMode(), this.config.getMaxLength(), contentLength);
-        int realControlThickness = CommonLogic.findSize(this.config.getThicknessMode(), this.config.getMaxThickness(), contentThickness);
+        int realControlLength = CommonLogic.findSize(this.properties.getLengthMode(), this.properties.getMaxLength(), contentLength);
+        int realControlThickness = CommonLogic.findSize(this.properties.getThicknessMode(), this.properties.getMaxThickness(), contentThickness);
 
-        CommonLogic.applyGravityToLines(lines, realControlLength, realControlThickness, config);
+        CommonLogic.applyGravityToLines(lines, realControlLength, realControlThickness, properties);
 
         for (int i = 0; i < linesCount; i++) {
             LineDefinition line = lines.get(i);

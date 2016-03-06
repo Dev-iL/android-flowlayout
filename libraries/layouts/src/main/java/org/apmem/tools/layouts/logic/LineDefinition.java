@@ -5,13 +5,13 @@ import java.util.List;
 
 public class LineDefinition {
     private final List<ViewDefinition> views = new ArrayList<>();
-    private final ConfigDefinition config;
+    private final FlowLayoutProperties config;
     private int lineLength;
     private int lineThickness;
     private int lineStartThickness;
     private int lineStartLength;
 
-    public LineDefinition(ConfigDefinition config) {
+    public LineDefinition(FlowLayoutProperties config) {
         this.config = config;
         this.lineStartThickness = 0;
         this.lineStartLength = 0;

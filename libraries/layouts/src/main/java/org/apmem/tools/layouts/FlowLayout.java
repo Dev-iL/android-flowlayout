@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewDebug;
 import android.view.ViewGroup;
 import org.apmem.tools.layouts.logic.CommonLogic;
-import org.apmem.tools.layouts.logic.ConfigDefinition;
+import org.apmem.tools.layouts.logic.FlowLayoutProperties;
 import org.apmem.tools.layouts.logic.LineDefinition;
 import org.apmem.tools.layouts.logic.ViewDefinition;
 
@@ -20,25 +20,25 @@ import java.util.List;
 
 public class FlowLayout extends ViewGroup {
 
-    private final ConfigDefinition config;
+    private final FlowLayoutProperties config;
     List<LineDefinition> lines = new ArrayList<>();
     List<ViewDefinition> views = new ArrayList<>();
 
     public FlowLayout(Context context) {
         super(context);
-        this.config = new ConfigDefinition();
+        this.config = new FlowLayoutProperties();
         readStyleParameters(context, null);
     }
 
     public FlowLayout(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        this.config = new ConfigDefinition();
+        this.config = new FlowLayoutProperties();
         readStyleParameters(context, attributeSet);
     }
 
     public FlowLayout(Context context, AttributeSet attributeSet, int defStyle) {
         super(context, attributeSet, defStyle);
-        this.config = new ConfigDefinition();
+        this.config = new FlowLayoutProperties();
         readStyleParameters(context, attributeSet);
     }
 

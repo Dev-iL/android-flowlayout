@@ -4,7 +4,7 @@ import android.view.Gravity;
 import android.view.View;
 
 public class ViewDefinition {
-    private final ConfigDefinition config;
+    private final FlowLayoutProperties config;
     private final View view;
     private int inlineStartLength;
     private float weight;
@@ -18,7 +18,7 @@ public class ViewDefinition {
     private int rightMargin;
     private int bottomMargin;
 
-    public ViewDefinition(ConfigDefinition config, View child) {
+    public ViewDefinition(FlowLayoutProperties config, View child) {
         this.config = config;
         this.view = child;
     }
